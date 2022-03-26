@@ -1,0 +1,33 @@
+ext.versions = [
+        lombok      : '1.18.22',
+        mapstruct   : '1.4.2.Final',
+        junit       : '4.12'
+]
+
+ext.deps = [
+        lombok: [
+                "org.projectlombok:lombok:$versions.lombok"
+        ],
+
+        spring: [
+                "org.springframework.boot:spring-boot-starter-data-jpa",
+                "org.springframework.boot:spring-boot-starter-web"
+        ],
+
+        spring_test: [
+                "org.springframework.boot:spring-boot-starter-test",
+                "junit:junit:$versions.junit"
+        ],
+
+        postgres: [
+                "org.postgresql:postgresql"
+        ],
+
+        mapstruct: [
+                "org.mapstruct:mapstruct:$versions.mapstruct"
+        ],
+
+        mapstruct_annotations: [
+                "org.mapstruct:mapstruct-processor:$versions.mapstruct"
+        ],
+]
