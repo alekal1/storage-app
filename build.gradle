@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'ee.alekal'
-version = '0.2.0'
+version = '0.2.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -41,4 +41,7 @@ task cleanLog {
 
 test {
 	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
 }
