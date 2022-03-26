@@ -16,7 +16,7 @@ import static ee.alekal.storage.utils.AppConstants.PERSON_SEQUENCE;
 
 @Data
 @Entity
-@Table
+@Table(name = "person")
 @NoArgsConstructor
 public class Person {
 

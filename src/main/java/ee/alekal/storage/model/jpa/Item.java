@@ -22,7 +22,7 @@ import static ee.alekal.storage.utils.AppConstants.ITEM_SEQUENCE;
 
 @Data
 @Entity
-@Table
+@Table(name = "item")
 @NoArgsConstructor
 public class Item {
 

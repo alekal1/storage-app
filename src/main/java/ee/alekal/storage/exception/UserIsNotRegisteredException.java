@@ -8,7 +8,4 @@ public class UserIsNotRegisteredException extends IllegalArgumentException {
         super(USER_IS_NOT_REGISTERED_MSG);
     }
 
-    public UserIsNotRegisteredException(String message) {
-        super(message);
-    }
 }

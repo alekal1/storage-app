@@ -8,8 +8,4 @@ public class RepresentativeIsNotFoundException extends IllegalArgumentException 
         super(REPRESENTATIVE_EXCEPTION_MSG);
     }
 
-    public RepresentativeIsNotFoundException(String message) {
-        super(message);
-    }
-
 }

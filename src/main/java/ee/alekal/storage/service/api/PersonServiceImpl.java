@@ -2,8 +2,10 @@ package ee.alekal.storage.service.api;
 
 import ee.alekal.storage.dao.PersonRepository;
 import ee.alekal.storage.exception.RepresentativeIsNotFoundException;
+import ee.alekal.storage.exception.UserAlreadyRegisteredException;
 import ee.alekal.storage.exception.UserIsNotRegisteredException;
 import ee.alekal.storage.mapper.AppMapper;
+import ee.alekal.storage.model.Action;
 import ee.alekal.storage.model.dto.ErrorResponse;
 import ee.alekal.storage.model.dto.PersonDto;
 import ee.alekal.storage.service.validation.PersonValidator;
@@ -28,8 +30,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public ResponseEntity<?> loginPerson(PersonDto personDto) {
         try {
-            log.debug("loginPerson, validating person.");
-            personValidator.checkIfPersonRegistered(personDto);
+            log.info("loginPerson, validating person.");
+            personValidator.checkPersonsAction(personDto, Action.LOGIN);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (UserIsNotRegisteredException e) {
             return badRequestResponse(e.getMessage());
@@ -40,14 +42,15 @@ public class PersonServiceImpl implements PersonService {
     public ResponseEntity<?> registerPerson(PersonDto personDto) {
         try {
 
-            log.debug("registerPerson, validating person.");
+            log.info("registerPerson, validating person.");
+            personValidator.checkPersonsAction(personDto, Action.REGISTER);
             personValidator.checkIfRepresentativeAssigned(personDto);
             var entity = appMapper.personDtoToEntity(personDto);
             entity.setPassword(PasswordHelper.encodePassword(personDto.getPassword()));
             personRepository.saveAndFlush(entity);
 
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (RepresentativeIsNotFoundException e) {
+        } catch (RepresentativeIsNotFoundException | UserAlreadyRegisteredException e) {
             return badRequestResponse(e.getMessage());
         }
     }

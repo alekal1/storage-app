@@ -17,4 +17,6 @@ public class AppConstants {
             = "Representative with given username was not found!";
     public static final String USER_IS_NOT_REGISTERED_MSG
             = "User is not registered!";
+    public static final String USER_IS_ALREADY_REGISTERED_MSG
+            = "User is already registered!";
 }
