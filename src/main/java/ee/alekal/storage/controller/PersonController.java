@@ -18,7 +18,6 @@ public class PersonController {
 
     private final PersonService personService;
 
-
     @PostMapping("/login")
     public ResponseEntity<?> loginPerson(@RequestBody PersonDto person) {
         return personService.loginPerson(person);

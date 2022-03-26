@@ -31,7 +31,9 @@ public class PersonServiceImpl implements PersonService {
     public ResponseEntity<?> loginPerson(PersonDto personDto) {
         try {
             log.info("loginPerson, validating person.");
+
             personValidator.checkPersonsAction(personDto, Action.LOGIN);
+
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (UserIsNotRegisteredException e) {
             return badRequestResponse(e.getMessage());
@@ -41,10 +43,10 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public ResponseEntity<?> registerPerson(PersonDto personDto) {
         try {
-
             log.info("registerPerson, validating person.");
+
             personValidator.checkPersonsAction(personDto, Action.REGISTER);
-            personValidator.checkIfRepresentativeAssigned(personDto);
+
             var entity = appMapper.personDtoToEntity(personDto);
             entity.setPassword(PasswordHelper.encodePassword(personDto.getPassword()));
             personRepository.saveAndFlush(entity);

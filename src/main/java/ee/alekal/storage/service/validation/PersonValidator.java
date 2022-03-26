@@ -21,17 +21,6 @@ public class PersonValidator {
 
     private final PersonRepository personRepository;
 
-    public void checkIfRepresentativeAssigned(PersonDto personDto) throws RepresentativeIsNotFoundException {
-        if (BUSINESS.value.equalsIgnoreCase(personDto.getProfileType())) {
-            var repr = personRepository.getByUsername(
-                    personDto.getRepresentativeUsername());
-
-            if (repr.isEmpty()) {
-                throw new RepresentativeIsNotFoundException();
-            }
-        }
-    }
-
     public void checkPersonsAction(PersonDto personDto, Action action) throws UserIsNotRegisteredException {
         log.info("Checking action {}", action.name());
         var encodedPassword = PasswordHelper.encodePassword(personDto.getPassword());
@@ -45,9 +34,20 @@ public class PersonValidator {
         } else {
             if (person.isPresent()) {
                 throw new UserAlreadyRegisteredException();
+            } else {
+                checkIfRepresentativeAssigned(personDto);
             }
         }
-
     }
 
+    private void checkIfRepresentativeAssigned(PersonDto personDto) throws RepresentativeIsNotFoundException {
+        if (BUSINESS.value.equalsIgnoreCase(personDto.getProfileType())) {
+            var repr = personRepository.getByUsername(
+                    personDto.getRepresentativeUsername());
+
+            if (repr.isEmpty()) {
+                throw new RepresentativeIsNotFoundException();
+            }
+        }
+    }
 }

@@ -45,6 +45,21 @@ public class ApiIntegrationTest {
 
     @Test
     @Order(2)
+    public void secondUserCanRegisterSuccessfully() throws Exception {
+        final var validSecondDto = PersonDto.builder()
+                .username("SECOND")
+                .password("SECOND")
+                .profileType(ProfileType.PRIVATE)
+                .build();
+        this.mockMvc.perform(post(PERSON_API_PATH.concat("/register"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(validSecondDto)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Order(3)
     public void userCanLoginSuccessfully() throws Exception {
         this.mockMvc.perform(post(PERSON_API_PATH.concat("/login"))
             .contentType(MediaType.APPLICATION_JSON)
@@ -54,7 +69,7 @@ public class ApiIntegrationTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     public void userCannotRegisterSecondTime() throws Exception {
         this.mockMvc.perform(post(PERSON_API_PATH.concat("/register"))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -64,7 +79,7 @@ public class ApiIntegrationTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     public void nonRegisteredUserCannotLogin() throws Exception {
         final var invalidDto = createInvalidBusinessDto();
         this.mockMvc.perform(post(PERSON_API_PATH.concat("/login"))
@@ -75,7 +90,7 @@ public class ApiIntegrationTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     public void businessUserCannotRegisterIfRepresentativeNotExists() throws Exception {
         final var invalidDto = createInvalidBusinessDto();
         this.mockMvc.perform(post(PERSON_API_PATH.concat("/register"))
@@ -86,14 +101,14 @@ public class ApiIntegrationTest {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     public void validBusinessClientCanRegister() throws Exception {
         final var validBusinessDto = PersonDto.builder()
                 .username("BUSINESS")
                 .password("PASS")
                 .profileType(ProfileType.BUSINESS)
                 .representativeUsername(VALID_USERNAME)
-                .build();;
+                .build();
         this.mockMvc.perform(post(PERSON_API_PATH.concat("/register"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
