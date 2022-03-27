@@ -1,0 +1,64 @@
+<app-greeting></app-greeting>
+<div id="center-div">
+  <mat-card>
+    <form id="register-form" [formGroup]="form">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <label>
+            <input formControlName="name" type="text" matInput required>
+          </label>
+          <mat-error>Name should contain only letters!</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <label>
+            <input formControlName="password" type="text" matInput required>
+          </label>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm password</mat-label>
+          <label>
+            <input formControlName="confirmPassword" type="text" matInput required>
+          </label>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Profile type</mat-label>
+          <mat-select required
+                      [(value)]="profileType"
+                      (selectionChange)="handleProfileType()">
+            <mat-option value="business">
+              Business
+            </mat-option>
+            <mat-option value="private">
+              Private
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill" *ngIf="needsRepresentative">
+          <mat-label>Representative username</mat-label>
+          <label>
+            <input formControlName="representative" type="text" matInput required>
+          </label>
+          <mat-hint id="repr-hint">You need to provide representative in order to create business account</mat-hint>
+        </mat-form-field>
+      </p>
+      <button id="register-btn" mat-flat-button
+              color="accent"
+              type="submit"
+              [disabled]="!form.valid || profileType == undefined"
+              (click)="registerPerson()">Sign up!</button>
+      <button id="back-btn" mat-flat-button
+              color="primary"
+              routerLink="/login">Back</button>
+    </form>
+  </mat-card>
+</div>

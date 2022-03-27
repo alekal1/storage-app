@@ -11,22 +11,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatSelectModule } from '@angular/material/select';
 import {HttpClientModule} from '@angular/common/http';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { GreetingComponent } from './greeting/greeting.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    RegisterFormComponent,
+    GreetingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatCardModule,
     MatSnackBarModule,
+    MatSelectModule,
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
@@ -35,7 +41,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [AppRoutingModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

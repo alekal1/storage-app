@@ -6,6 +6,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ErrorResponse} from "../_dto/error.dto";
 import {SnackbarComponent} from "../snackbar/snackbar.component";
 
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -38,7 +39,7 @@ export class LoginFormComponent implements OnInit {
       this.form.value.password
     );
 
-    this.personService.loginUser(personDto)
+    this.personService.loginPerson(personDto)
       .catch((errorResponse) => {
         const error = errorResponse.error;
         let errorObj = new ErrorResponse(
@@ -49,7 +50,9 @@ export class LoginFormComponent implements OnInit {
         console.log("Got error " + errorObj)
         this._snackBar.openFromComponent(SnackbarComponent, {
           data: errorObj,
-          duration: 7000
+          duration: 7000,
+          horizontalPosition: "center",
+          verticalPosition: "top"
         })
       })
   }

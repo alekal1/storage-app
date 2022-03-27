@@ -20,9 +20,16 @@ export class PersonService {
   }
 
   /**
-   * Check user can login
+   * Check if person can login
    */
-  public async loginUser(personDto: PersonDto): Promise<PersonDto> {
+  public async loginPerson(personDto: PersonDto): Promise<PersonDto> {
     return this.client.post<PersonDto>(`${this.personApi}/login`, personDto, httpOptions).toPromise();
+  }
+
+  /**
+   * Register person
+   */
+  public async registerPerson(personDto: PersonDto): Promise<PersonDto> {
+    return this.client.post<PersonDto>(`${this.personApi}/register`, personDto, httpOptions).toPromise();
   }
 }

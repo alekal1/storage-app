@@ -36,7 +36,7 @@ dependencies {
 	testImplementation deps.spring_test
 }
 
-task deleteStatic(type: Delete) {
+task cleanStatic(type: Delete) {
 	def dirName = "src/main/resources/static"
 	file(dirName).list().each(
 			f ->
