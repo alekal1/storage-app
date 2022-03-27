@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'ee.alekal'
-version = '1.2.0'
+version = '1.3.0'
 sourceCompatibility = '11'
 
 configurations {
@@ -36,6 +36,14 @@ dependencies {
 	testImplementation deps.spring_test
 }
 
+task deleteStatic(type: Delete) {
+	def dirName = "src/main/resources/static"
+	file(dirName).list().each(
+			f ->
+					delete "${dirName}/${f}"
+	)
+}
+
 task cleanLog {
 	delete "$rootDir/log"
 }
@@ -46,3 +54,5 @@ test {
 		events "passed", "skipped", "failed"
 	}
 }
+
+processResources.dependsOn('app-ui:build')

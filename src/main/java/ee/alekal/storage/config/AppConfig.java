@@ -19,6 +19,10 @@ import static ee.alekal.storage.model.ProfileType.ADMIN;
 @EnableSwagger2
 public class AppConfig {
 
+    private static final String ADMIN_PROP_FILE = "admin.properties";
+    private static final String ADMIN_USERNAME_PROP = "username";
+    private static final String ADMIN_PASSWORD_PROP = "password";
+
     @Bean
     public AppMapper personMapper() {
         return Mappers.getMapper(AppMapper.class);
@@ -29,8 +33,8 @@ public class AppConfig {
         return args -> {
             var props = configureProps();
             var adminPerson = new Person();
-            adminPerson.setUsername(props.getProperty("username"));
-            adminPerson.setPassword(PasswordHelper.encodePassword(props.getProperty("password")));
+            adminPerson.setUsername(props.getProperty(ADMIN_USERNAME_PROP));
+            adminPerson.setPassword(PasswordHelper.encodePassword(props.getProperty(ADMIN_PASSWORD_PROP)));
             adminPerson.setProfileType(ADMIN.value);
             personRepository.saveAndFlush(adminPerson);
         };
@@ -39,7 +43,7 @@ public class AppConfig {
     public static Properties configureProps() {
         Properties props = new Properties();
         var inputStream = AppConfig.class.getClassLoader()
-                .getResourceAsStream("admin.properties");
+                .getResourceAsStream(ADMIN_PROP_FILE);
         try {
             props.load(inputStream);
             return props;
