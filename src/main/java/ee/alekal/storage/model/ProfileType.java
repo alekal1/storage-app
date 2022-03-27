@@ -2,7 +2,8 @@ package ee.alekal.storage.model;
 
 public enum ProfileType {
     BUSINESS("BUSINESS"),
-    PRIVATE("PRIVATE");
+    PRIVATE("PRIVATE"),
+    ADMIN("ADMIN");
 
     public String value;
 

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'ee.alekal'
-version = '1.1.0'
+version = '1.2.0'
 sourceCompatibility = '11'
 
 configurations {
