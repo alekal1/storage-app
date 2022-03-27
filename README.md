@@ -33,6 +33,10 @@ This project uses external slf4j lombok logging tool.
 
 All logs are saved in gitignored `log` folder
 
+## API Endpoints
+
+Proceed to `http://localhost:8080/swagger-ui.html` for swagger API documentation.
+
 ## Testing
 
 Type `./gradlew test (gradlew test on windows)` for running basic test cases

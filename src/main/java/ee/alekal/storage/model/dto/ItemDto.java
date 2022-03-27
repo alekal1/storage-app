@@ -3,6 +3,7 @@ package ee.alekal.storage.model.dto;
 import lombok.Getter;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 
 @Getter
 public class ItemDto {
@@ -11,6 +12,7 @@ public class ItemDto {
     private String picturePath;
     private String serialNumber;
     private String color;
+    private LocalDate lastAccessedOn;
     private BigInteger size;
 
     public static ItemDtoBuilder builder() {
@@ -23,6 +25,7 @@ public class ItemDto {
         private String serialNumber;
         private String color;
         private BigInteger size;
+        private LocalDate lastAccessedOn = LocalDate.now();
 
         public ItemDtoBuilder name(String name) {
             this.name = name;
