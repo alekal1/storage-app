@@ -1,0 +1,26 @@
+<mat-card>
+  <form id="login-form" [formGroup]="form">
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <label>
+          <input formControlName="name" type="text" matInput required>
+        </label>
+        <mat-error>Name should contain only letters!</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <label>
+          <input formControlName="password" type="text" matInput required>
+        </label>
+        <mat-error>Password's size should be at least 3 characters!</mat-error>
+      </mat-form-field>
+    </p>
+    <button id="submit-btn" mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="loginPerson()">Login</button>
+  </form>
+</mat-card>
