@@ -1,5 +1,11 @@
 package ee.alekal.storage.utils;
 
+import ee.alekal.storage.model.dto.ErrorResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.UUID;
+
 public class AppConstants {
     // General
     private static final String API_BASE_PATH = "/api";
@@ -19,4 +25,21 @@ public class AppConstants {
             = "User is not registered!";
     public static final String USER_IS_ALREADY_REGISTERED_MSG
             = "User is already registered!";
+    public static final String ITEM_IS_NOT_EMPTY_MSG
+            = "Item is not empty! You can remove only empty items";
+    public static final String SUB_ITEM_IS_BIGGER_THAN_PARENT_MSG
+            = "Sub item's size is bigger that it's parent size";
+
+
+    // Response
+    public static ResponseEntity<ErrorResponse> errorResponse(String message) {
+        return new ResponseEntity<>(
+                ErrorResponse.builder()
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .uuid(UUID.randomUUID().toString())
+                        .message(message)
+                        .build(),
+                HttpStatus.BAD_REQUEST
+        );
+    }
 }

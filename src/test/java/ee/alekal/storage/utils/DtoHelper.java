@@ -30,6 +30,15 @@ public class DtoHelper {
                 .build();
     }
 
+    public static PersonDto createValidPrivateDto(String name) {
+        return PersonDto.builder()
+                .username(name)
+                .password(VALID_PASSWORD)
+                .profileType(ProfileType.PRIVATE)
+                .representativeUsername(VALID_REPRESENTATIVE_NAME)
+                .build();
+    }
+
     public static PersonDto createInvalidBusinessDto() {
         return PersonDto.builder()
                 .username(INVALID_USERNAME)

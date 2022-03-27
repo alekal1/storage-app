@@ -1,5 +1,6 @@
 package ee.alekal.storage.service;
 
+import ee.alekal.storage.dao.ItemRepository;
 import ee.alekal.storage.dao.PersonRepository;
 import ee.alekal.storage.model.dto.ErrorResponse;
 import ee.alekal.storage.model.jpa.Person;
@@ -90,6 +91,11 @@ public class PersonServiceTest {
             when(mock.getByUsernameAndPassword(eq(INVALID_USERNAME), eq(INVALID_ENCODED_PASS)))
                     .thenReturn(Optional.empty());
             return mock;
+        }
+
+        @Bean
+        public ItemRepository itemRepository() {
+            return Mockito.mock(ItemRepository.class);
         }
     }
 }

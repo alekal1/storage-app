@@ -6,7 +6,6 @@ import ee.alekal.storage.exception.UserAlreadyRegisteredException;
 import ee.alekal.storage.exception.UserIsNotRegisteredException;
 import ee.alekal.storage.mapper.AppMapper;
 import ee.alekal.storage.model.Action;
-import ee.alekal.storage.model.dto.ErrorResponse;
 import ee.alekal.storage.model.dto.PersonDto;
 import ee.alekal.storage.service.validation.PersonValidator;
 import ee.alekal.storage.utils.PasswordHelper;
@@ -16,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import static ee.alekal.storage.utils.AppConstants.errorResponse;
 
 @Slf4j
 @Service
@@ -36,7 +35,7 @@ public class PersonServiceImpl implements PersonService {
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (UserIsNotRegisteredException e) {
-            return badRequestResponse(e.getMessage());
+            return errorResponse(e.getMessage());
         }
     }
 
@@ -53,19 +52,8 @@ public class PersonServiceImpl implements PersonService {
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (RepresentativeIsNotFoundException | UserAlreadyRegisteredException e) {
-            return badRequestResponse(e.getMessage());
+            return errorResponse(e.getMessage());
         }
-    }
-
-    private ResponseEntity<ErrorResponse> badRequestResponse(String message) {
-        return new ResponseEntity<>(
-                ErrorResponse.builder()
-                        .code(HttpStatus.BAD_REQUEST.value())
-                        .uuid(UUID.randomUUID().toString())
-                        .message(message)
-                        .build(),
-                HttpStatus.BAD_REQUEST
-        );
     }
 
 }

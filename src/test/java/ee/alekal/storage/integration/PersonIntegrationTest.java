@@ -3,8 +3,10 @@ package ee.alekal.storage.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ee.alekal.storage.model.ProfileType;
 import ee.alekal.storage.model.dto.PersonDto;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,7 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ApiIntegrationTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class PersonIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;

@@ -10,12 +10,14 @@ import ee.alekal.storage.utils.PasswordHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static ee.alekal.storage.model.Action.LOGIN;
 import static ee.alekal.storage.model.ProfileType.BUSINESS;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PersonValidator {
 
