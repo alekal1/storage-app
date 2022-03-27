@@ -2,8 +2,10 @@ package ee.alekal.storage.model.dto;
 
 import ee.alekal.storage.model.ProfileType;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class PersonDto {
 
     private String username;

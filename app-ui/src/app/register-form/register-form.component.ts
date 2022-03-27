@@ -68,6 +68,7 @@ export class RegisterFormComponent implements OnInit {
       this.personService.registerPerson(personDto)
         .then((res) => {
           alert("You were registered!")
+          this.initForm();
         })
         .catch((errorResponse) => {
           const error = errorResponse.error;

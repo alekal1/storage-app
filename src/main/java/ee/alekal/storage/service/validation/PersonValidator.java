@@ -32,6 +32,8 @@ public class PersonValidator {
         if (LOGIN.equals(action)) {
             if (person.isEmpty()) {
                 throw new UserIsNotRegisteredException();
+            } else {
+                personDto.setProfileType(person.get().getProfileType());
             }
         } else {
             if (person.isPresent()) {

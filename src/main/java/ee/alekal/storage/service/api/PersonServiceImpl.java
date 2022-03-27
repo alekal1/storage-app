@@ -33,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
 
             personValidator.checkPersonsAction(personDto, Action.LOGIN);
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok(personDto);
         } catch (UserIsNotRegisteredException e) {
             return errorResponse(e.getMessage());
         }

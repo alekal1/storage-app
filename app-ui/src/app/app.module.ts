@@ -12,12 +12,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 import {HttpClientModule} from '@angular/common/http';
 
 import { LoginFormComponent } from './login-form/login-form.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { GreetingComponent } from './greeting/greeting.component';
+import { ItemDashboardComponent } from './item-dashboard/item-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { GreetingComponent } from './greeting/greeting.component';
     LoginFormComponent,
     SnackbarComponent,
     RegisterFormComponent,
-    GreetingComponent
+    GreetingComponent,
+    ItemDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { GreetingComponent } from './greeting/greeting.component';
     MatSnackBarModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTableModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,

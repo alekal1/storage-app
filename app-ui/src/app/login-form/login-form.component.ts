@@ -5,6 +5,7 @@ import {PersonDto} from "../_dto/person.dto";
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ErrorResponse} from "../_dto/error.dto";
 import {SnackbarComponent} from "../snackbar/snackbar.component";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginFormComponent implements OnInit {
 
   constructor(private personService: PersonService,
               private fb: FormBuilder,
+              private _router: Router,
               private _snackBar: MatSnackBar) {
 
   }
@@ -40,6 +42,11 @@ export class LoginFormComponent implements OnInit {
     );
 
     this.personService.loginPerson(personDto)
+      .then((res) => {
+        localStorage.setItem("person", res.username);
+        localStorage.setItem("profileType", res.profileType);
+        this._router.navigateByUrl("/dashboard").then(r => console.log("Redirect"));
+      })
       .catch((errorResponse) => {
         const error = errorResponse.error;
         let errorObj = new ErrorResponse(
