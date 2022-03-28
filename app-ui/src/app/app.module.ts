@@ -20,6 +20,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { GreetingComponent } from './greeting/greeting.component';
 import { ItemDashboardComponent } from './item-dashboard/item-dashboard.component';
+import { AddItemFormComponent } from './add-item-form/add-item-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ItemDashboardComponent } from './item-dashboard/item-dashboard.componen
     SnackbarComponent,
     RegisterFormComponent,
     GreetingComponent,
-    ItemDashboardComponent
+    ItemDashboardComponent,
+    AddItemFormComponent
   ],
   imports: [
     BrowserModule,

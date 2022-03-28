@@ -3,6 +3,7 @@ package ee.alekal.storage.service.api;
 import ee.alekal.storage.dao.ItemRepository;
 import ee.alekal.storage.dao.PersonRepository;
 import ee.alekal.storage.exception.ItemSizeIsBiggerThanItsParentException;
+import ee.alekal.storage.exception.ItemSizeIsZeroException;
 import ee.alekal.storage.mapper.AppMapper;
 import ee.alekal.storage.model.dto.ItemDto;
 import ee.alekal.storage.model.jpa.Item;
@@ -32,6 +33,12 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> addItem(String personUsername, ItemDto itemDto) {
+        try {
+            itemValidator.checkIfSizeNotZero(itemDto);
+        } catch (ItemSizeIsZeroException e) {
+            return errorResponse(e.getMessage());
+        }
+
         var item = appMapper.itemDtoTiEntity(itemDto);
         var person = personRepository.getByUsername(personUsername);
 
@@ -66,7 +73,7 @@ public class ItemServiceImpl implements ItemService {
 
             itemRepository.saveAndFlush(item);
             return ResponseEntity.ok().build();
-        } catch (ItemSizeIsBiggerThanItsParentException e) {
+        } catch (ItemSizeIsBiggerThanItsParentException | ItemSizeIsZeroException e) {
             return errorResponse(e.getMessage());
         }
     }

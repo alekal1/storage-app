@@ -57,7 +57,7 @@ public class PersonServiceTest {
         final var personDto = createValidBusinessDto();
         var response = personService.loginPerson(personDto);
         assertNotNull(response);
-        assertNull(response.getBody());
+        assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 

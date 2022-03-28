@@ -10,12 +10,15 @@ import {ItemDto} from "../_dto/item.dto";
 export class ItemDashboardComponent implements OnInit {
 
   person: string = localStorage.getItem("person")
+  itemId: number = undefined;
 
   constructor(private itemService: ItemService) { }
 
   topItems: ItemDto[];
   displayedColumns: string[] =
-    ['name', 'serialNumber', 'color', 'size', 'lastAccessedOn']
+    ['id', 'picture', 'name', 'serialNumber',
+      'color', 'size', 'lastAccessedOn',
+      'subItems', 'addSubItems']
 
   ngOnInit(): void {
     this.getTopItems();
@@ -27,5 +30,9 @@ export class ItemDashboardComponent implements OnInit {
         this.topItems = res;
       }
     )
+  }
+
+  addSubItem(id: number) {
+    this.itemId = id;
   }
 }

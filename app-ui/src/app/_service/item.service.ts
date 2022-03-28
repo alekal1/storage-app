@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {ItemDto} from "../_dto/item.dto";
+import {PersonDto} from "../_dto/person.dto";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,4 +29,17 @@ export class ItemService {
     return this.client.get<ItemDto[]>(`${this.itemApi}/${username}/items`);
   }
 
+  /**
+   * Add item
+   */
+  public addItem(username: string, itemDto: ItemDto): Promise<ItemDto> {
+    return this.client.post<ItemDto>(`${this.itemApi}/${username}`, itemDto, httpOptions).toPromise();
+  }
+
+  /**
+   * Add sub item
+   */
+  public addSubItem(itemId: number, username: string, itemDto: ItemDto): Promise<ItemDto> {
+    return this.client.post<ItemDto>(`${this.itemApi}/${itemId}/${username}`, itemDto, httpOptions).toPromise();
+  }
 }
