@@ -9,6 +9,12 @@ This repository contains a project structure and all implemented functionality o
 
 The project uses Spring Boot/Angular and can be built/deployed with Gradle.
 
+Front-end side located under `app-ui` submodule
+
+Pre-create user's login data could be changed in `src/main/resources/admin.properties`
+
+(check AppConfig class for better understanding how it works in application)
+
 ## Database
 Database configuration could be founded in `src/main/resources/application.properites`
 
@@ -26,6 +32,14 @@ CREATE DATABASE storagedb;
 ``
 GRANT ALL PRIVILEGES ON DATABASE storagedb TO ale;
 ``
+
+## Run
+
+```
+gradlew bootRun - Windows
+
+./gradlew bootRun - Linux
+```
 
 ## Logging
 
