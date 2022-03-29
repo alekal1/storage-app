@@ -42,4 +42,18 @@ export class ItemService {
   public addSubItem(itemId: number, username: string, itemDto: ItemDto): Promise<ItemDto> {
     return this.client.post<ItemDto>(`${this.itemApi}/${itemId}/${username}`, itemDto, httpOptions).toPromise();
   }
+
+  /**
+   * Get sub items
+   */
+  public getSubItems(itemId: number): Observable<ItemDto[]> {
+    return this.client.get<ItemDto[]>(`${this.itemApi}/${itemId}/subItems`);
+  }
+
+  /**
+   * Get item size
+   */
+  public getItemSize(itemId: number): Observable<number> {
+    return this.client.get<number>(`${this.itemApi}/${itemId}`);
+  }
 }

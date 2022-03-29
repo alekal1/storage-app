@@ -21,6 +21,7 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { GreetingComponent } from './greeting/greeting.component';
 import { ItemDashboardComponent } from './item-dashboard/item-dashboard.component';
 import { AddItemFormComponent } from './add-item-form/add-item-form.component';
+import { SubItemDashboardComponent } from './sub-item-dashboard/sub-item-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AddItemFormComponent } from './add-item-form/add-item-form.component';
     RegisterFormComponent,
     GreetingComponent,
     ItemDashboardComponent,
-    AddItemFormComponent
+    AddItemFormComponent,
+    SubItemDashboardComponent
   ],
   imports: [
     BrowserModule,

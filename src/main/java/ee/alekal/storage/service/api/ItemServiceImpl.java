@@ -18,6 +18,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static ee.alekal.storage.utils.AppConstants.ITEM_IS_NOT_EMPTY_MSG;
+import static ee.alekal.storage.utils.AppConstants.ITEM_NOT_EXIST;
 import static ee.alekal.storage.utils.AppConstants.USER_IS_NOT_REGISTERED_MSG;
 import static ee.alekal.storage.utils.AppConstants.errorResponse;
 
@@ -119,6 +120,15 @@ public class ItemServiceImpl implements ItemService {
         items.forEach(item -> item.setLastAccessedOn(LocalDate.now()));
         log.info("Got sub items {}, for id={}", items, itemId);
         return ResponseEntity.ok(items);
+    }
+
+    @Override
+    public ResponseEntity<?> getItemSize(Long itemId) {
+        var item = itemRepository.findById(itemId);
+        if (item.isEmpty()) {
+            return errorResponse(ITEM_NOT_EXIST);
+        }
+        return ResponseEntity.ok(item.get().getSize());
     }
 
 

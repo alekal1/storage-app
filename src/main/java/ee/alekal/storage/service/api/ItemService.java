@@ -10,4 +10,5 @@ public interface ItemService {
     ResponseEntity<?> removeItem(String personUsername, Long itemId);
     ResponseEntity<?> getTopLevelItems(String userName);
     ResponseEntity<?> getSubItems(Long itemId);
+    ResponseEntity<?> getItemSize(Long itemId);
 }

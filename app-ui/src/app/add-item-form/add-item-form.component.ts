@@ -80,6 +80,7 @@ export class AddItemFormComponent implements OnInit {
       horizontalPosition: "center",
       verticalPosition: "top"
     })
+    this.initForm();
   }
 
 }

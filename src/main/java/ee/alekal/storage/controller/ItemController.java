@@ -37,6 +37,11 @@ public class ItemController {
         return itemService.addItem(userName, itemDto);
     }
 
+    @GetMapping("/{itemId}")
+    public ResponseEntity<?> getItemSize(@PathVariable Long itemId) {
+        return itemService.getItemSize(itemId);
+    }
+
     @PostMapping("/{parentId}/{userName}")
     public ResponseEntity<?> addSubItem(@PathVariable Long parentId,
                                         @PathVariable String userName,

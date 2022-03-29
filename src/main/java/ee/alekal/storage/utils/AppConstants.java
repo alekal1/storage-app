@@ -31,6 +31,8 @@ public class AppConstants {
             = "Sub item's size is bigger that it's parent size";
     public static final String ITEM_SIZE_IS_ZERO_MSG
             = "Item's size cannot be zero!";
+    public static final String ITEM_NOT_EXIST
+            = "Item not exists!";
 
 
     // Response

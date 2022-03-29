@@ -3,9 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginFormComponent} from "./login-form/login-form.component";
 import {RegisterFormComponent} from "./register-form/register-form.component";
 import {ItemDashboardComponent} from "./item-dashboard/item-dashboard.component";
+import {SubItemDashboardComponent} from "./sub-item-dashboard/sub-item-dashboard.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'subItems/:id', component: SubItemDashboardComponent},
   { path: 'register', component: RegisterFormComponent },
   { path: 'login', component: LoginFormComponent },
   { path: 'dashboard', component: ItemDashboardComponent}
