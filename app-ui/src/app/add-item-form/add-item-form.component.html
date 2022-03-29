@@ -1,7 +1,7 @@
 <div id="center-div">
   <mat-card>
     <h2 *ngIf="itemId == undefined">Add new item</h2>
-    <h2 *ngIf="itemId != undefined">Add new <b>sub</b> item for item {{itemId}}</h2>
+    <h2 *ngIf="itemId != undefined">Add new item for item with id {{itemId}}</h2>
     <form id="add-item-form" [formGroup]="form">
       <p>
         <mat-form-field appearance="fill">

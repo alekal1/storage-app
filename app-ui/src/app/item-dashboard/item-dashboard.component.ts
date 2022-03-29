@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ItemService} from "../_service/item.service";
 import {ItemDto} from "../_dto/item.dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-item-dashboard',
@@ -12,7 +13,8 @@ export class ItemDashboardComponent implements OnInit {
   person: string = localStorage.getItem("person")
   itemId: number = undefined;
 
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService,
+              private router: Router) { }
 
   topItems: ItemDto[];
   displayedColumns: string[] =
@@ -24,7 +26,7 @@ export class ItemDashboardComponent implements OnInit {
     this.getTopItems();
   }
 
-  private getTopItems() {
+  private getTopItems(): void {
     this.itemService.getTopItems(this.person).subscribe(
       res => {
         this.topItems = res;
@@ -32,7 +34,12 @@ export class ItemDashboardComponent implements OnInit {
     )
   }
 
-  addSubItem(id: number) {
+  addSubItem(id: number): void {
     this.itemId = id;
+  }
+
+  logOut(): void {
+    localStorage.clear();
+    this.router.navigateByUrl("/login").then(r => console.log("Log out"))
   }
 }

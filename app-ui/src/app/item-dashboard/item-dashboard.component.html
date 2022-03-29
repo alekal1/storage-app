@@ -1,6 +1,12 @@
-<div id="center-div">
+<div class="center-div">
   <h2>Welcome {{person}}</h2>
   <h2>Your current items in storage: </h2>
+</div>
+<div class="center-div">
+  <button mat-raised-button color="primary"
+          (click)="logOut()">
+    Log out
+  </button>
 </div>
 <table id="center-table" mat-table [dataSource]="topItems" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
