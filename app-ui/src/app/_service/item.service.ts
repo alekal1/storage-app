@@ -2,7 +2,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {ItemDto} from "../_dto/item.dto";
-import {PersonDto} from "../_dto/person.dto";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -55,5 +54,12 @@ export class ItemService {
    */
   public getItemSize(itemId: number): Observable<number> {
     return this.client.get<number>(`${this.itemApi}/${itemId}`);
+  }
+
+  /**
+   * Remove item
+   */
+  public removeItem(itemId: number, username: string) {
+    return this.client.delete(`${this.itemApi}/${itemId}/${username}`);
   }
 }

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {PersonService} from "../_service/person.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {ErrorResponse} from "../_dto/error.dto";
-import {SnackbarComponent} from "../snackbar/snackbar.component";
 import {PersonDto} from "../_dto/person.dto";
+import {Utils} from "../_utils/app.util";
 
 @Component({
   selector: 'app-register-form',
@@ -15,7 +14,7 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(private personService: PersonService,
               private fb: FormBuilder,
-              private _snackBar: MatSnackBar) {
+              private _utils: Utils) {
 
   }
 
@@ -52,10 +51,7 @@ export class RegisterFormComponent implements OnInit {
         "400",
         "Passwords not matching!"
       );
-      this._snackBar.openFromComponent(SnackbarComponent, {
-        data: errorObj,
-        duration: 5000
-      });
+      this._utils.errorSnackBar(errorObj);
       this.initForm();
     } else {
       const personDto = new PersonDto(
@@ -71,19 +67,7 @@ export class RegisterFormComponent implements OnInit {
           this.initForm();
         })
         .catch((errorResponse) => {
-          const error = errorResponse.error;
-          let errorObj = new ErrorResponse(
-            error.uuid,
-            error.code,
-            error.message
-          );
-          console.log("Got error " + errorObj)
-          this._snackBar.openFromComponent(SnackbarComponent, {
-            data: errorObj,
-            duration: 7000,
-            horizontalPosition: "center",
-            verticalPosition: "top"
-          })
+          this._utils.errorSnackBar(errorResponse)
         })
     }
   }

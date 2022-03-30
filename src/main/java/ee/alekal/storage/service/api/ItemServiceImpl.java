@@ -92,6 +92,12 @@ public class ItemServiceImpl implements ItemService {
         }
         log.info("Got subItems for id={}, {}", itemId, subItems);
 
+        var item = itemRepository.getById(itemId);
+
+        if (item.getParentItem() != null) {
+            handleItemSize(item);
+        }
+
         itemRepository.deleteById(itemId);
         return ResponseEntity.ok().build();
     }
@@ -131,5 +137,10 @@ public class ItemServiceImpl implements ItemService {
         return ResponseEntity.ok(item.get().getSize());
     }
 
+    private void handleItemSize(Item item) {
+        var currSize = item.getSize();
+        var parentItem = item.getParentItem();
+        parentItem.setSize(parentItem.getSize().add(currSize));
+    }
 
 }

@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {ItemService} from "../_service/item.service";
 import { Location } from '@angular/common';
 import {switchMap} from "rxjs/operators";
+import {Utils} from "../_utils/app.util";
 
 @Component({
   selector: 'app-sub-item-dashboard',
@@ -16,17 +17,19 @@ export class SubItemDashboardComponent implements OnInit {
   size: number = undefined;
   itemId: number = undefined;
   currentItemId: number = undefined;
+  person: string = localStorage.getItem('person')
 
   displayedColumns: string[] =
     ['id', 'picture', 'name', 'serialNumber',
       'color', 'size', 'lastAccessedOn',
-      'subItems', 'addSubItems']
+      'subItems', 'addSubItems', 'removeItem']
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private itemService: ItemService,
-    private location: Location
+    private location: Location,
+    private _utils: Utils
   ) { }
 
   ngOnInit(): void {
@@ -55,5 +58,14 @@ export class SubItemDashboardComponent implements OnInit {
 
   addSubItem(id: number) {
     this.itemId = id;
+  }
+
+  removeItem(id: number): void {
+    this.itemService.removeItem(id, this.person)
+      .toPromise()
+      .then((res) => window.location.reload())
+      .catch((errorResponse) => {
+        this._utils.errorSnackBar(errorResponse);
+      })
   }
 }

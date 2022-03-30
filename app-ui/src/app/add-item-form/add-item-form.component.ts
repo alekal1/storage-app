@@ -2,9 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ItemService} from "../_service/item.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ItemDto} from "../_dto/item.dto";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ErrorResponse} from "../_dto/error.dto";
-import {SnackbarComponent} from "../snackbar/snackbar.component";
+import {Utils} from "../_utils/app.util";
 
 @Component({
   selector: 'app-add-item-form',
@@ -16,8 +14,8 @@ export class AddItemFormComponent implements OnInit {
   @Input() itemId = undefined;
 
   constructor(private itemService: ItemService,
-              private _snackBar: MatSnackBar,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private _utils: Utils) {
 
   }
 
@@ -53,7 +51,8 @@ export class AddItemFormComponent implements OnInit {
           window.location.reload();
         })
         .catch((errorResponse) => {
-          this.errorSnackBar(errorResponse)
+          this._utils.errorSnackBar(errorResponse)
+          this.initForm();
         })
     } else {
       this.itemService.addSubItem(this.itemId, localStorage.getItem("person"), dto)
@@ -61,26 +60,10 @@ export class AddItemFormComponent implements OnInit {
           window.location.reload()
         })
         .catch((errorResponse) => {
-          this.errorSnackBar(errorResponse)
+          this._utils.errorSnackBar(errorResponse)
+          this.initForm();
         })
     }
-  }
-
-  private errorSnackBar(errorResponse) {
-    const error = errorResponse.error;
-    let errorObj = new ErrorResponse(
-      error.uuid,
-      error.code,
-      error.message
-    );
-    console.log("Got error " + errorObj)
-    this._snackBar.openFromComponent(SnackbarComponent, {
-      data: errorObj,
-      duration: 7000,
-      horizontalPosition: "center",
-      verticalPosition: "top"
-    })
-    this.initForm();
   }
 
 }
