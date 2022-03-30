@@ -14,11 +14,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static ee.alekal.storage.utils.AppConstants.ITEM_IS_NOT_EMPTY_MSG;
 import static ee.alekal.storage.utils.AppConstants.ITEM_NOT_EXIST;
+import static ee.alekal.storage.utils.AppConstants.NO_ITEM_FOUND_WITH_GIVEN_SEARCH_QUERY;
+import static ee.alekal.storage.utils.AppConstants.SEPARATOR;
 import static ee.alekal.storage.utils.AppConstants.USER_IS_NOT_REGISTERED_MSG;
 import static ee.alekal.storage.utils.AppConstants.errorResponse;
 
@@ -135,6 +138,40 @@ public class ItemServiceImpl implements ItemService {
             return errorResponse(ITEM_NOT_EXIST);
         }
         return ResponseEntity.ok(item.get().getSize());
+    }
+
+    @Override
+    public ResponseEntity<?> searchItem(String personUsername, String searchQuery) {
+        var allPersonsItems =
+                itemRepository.getAllBySearchQueryAndUsername(personUsername, searchQuery.toLowerCase());
+        if (allPersonsItems.isEmpty()) {
+            return errorResponse(NO_ITEM_FOUND_WITH_GIVEN_SEARCH_QUERY);
+        }
+
+        log.info("Got {} for given search query={}",
+                allPersonsItems.size(), searchQuery);
+        var paths = new ArrayList<String>();
+        allPersonsItems.forEach(item -> paths.add(createItemPath(item, item.getName())));
+        return ResponseEntity.ok(paths);
+    }
+
+    private String createItemPath(Item item, String path) {
+        if (item.getParentItem() == null) {
+            return reversePath(path);
+        }
+        var newPath = path.concat(SEPARATOR).concat(item.getParentItem().getName());
+        return createItemPath(item.getParentItem(), newPath);
+    }
+
+    private String reversePath(String path) {
+        log.info("Reversing {}", path);
+        var pathSplit = path.split(SEPARATOR);
+        var pathBuilder = new StringBuilder();
+        for (int i = pathSplit.length - 1; i >= 0; i--) {
+            pathBuilder.append(pathSplit[i].concat(SEPARATOR));
+        }
+        log.info("After reverse {}", pathBuilder.toString());
+        return pathBuilder.toString();
     }
 
     private void handleItemSize(Item item) {

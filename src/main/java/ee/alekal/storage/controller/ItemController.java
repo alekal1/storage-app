@@ -49,6 +49,12 @@ public class ItemController {
         return itemService.addSubItem(userName, parentId, itemDto);
     }
 
+    @GetMapping("/{userName}/{searchQuery}")
+    public ResponseEntity<?> searchItem(@PathVariable String userName,
+                                        @PathVariable String searchQuery) {
+        return itemService.searchItem(userName, searchQuery);
+    }
+
     @DeleteMapping("/{itemId}/{userName}")
     public ResponseEntity<?> removeItem(@PathVariable Long itemId,
                                         @PathVariable String userName) {

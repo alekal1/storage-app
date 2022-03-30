@@ -11,4 +11,5 @@ public interface ItemService {
     ResponseEntity<?> getTopLevelItems(String userName);
     ResponseEntity<?> getSubItems(Long itemId);
     ResponseEntity<?> getItemSize(Long itemId);
+    ResponseEntity<?> searchItem(String personUsername, String searchQuery);
 }

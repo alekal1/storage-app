@@ -11,6 +11,7 @@ public class AppConstants {
     private static final String API_BASE_PATH = "/api";
     public static final String PERSON_API_PATH = API_BASE_PATH + "/person";
     public static final String ITEM_API_PATH = API_BASE_PATH + "/item";
+    public static final String SEPARATOR = "/";
 
 
     // DB
@@ -33,6 +34,8 @@ public class AppConstants {
             = "Item's size cannot be zero!";
     public static final String ITEM_NOT_EXIST
             = "Item not exists!";
+    public static final String NO_ITEM_FOUND_WITH_GIVEN_SEARCH_QUERY
+            = "Item with given name does not exists!";
 
 
     // Response
