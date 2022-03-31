@@ -22,6 +22,7 @@ import static ee.alekal.storage.model.ProfileType.ADMIN;
 import static ee.alekal.storage.utils.AppConstants.ADMIN_PASSWORD_PROP;
 import static ee.alekal.storage.utils.AppConstants.ADMIN_PROP_FILE;
 import static ee.alekal.storage.utils.AppConstants.ADMIN_USERNAME_PROP;
+import static ee.alekal.storage.utils.AppConstants.PICTURE;
 
 @Configuration
 @EnableSwagger2
@@ -52,8 +53,7 @@ public class AppConfig extends WebMvcAutoConfiguration {
                 item.setSize(BigInteger.TEN);
                 item.setName("Box-" + i);
                 item.setSerialNumber("abc-def-12" + i);
-                item.setPicturePath("" +
-                        "https://i.pinimg.com/originals/59/54/b4/5954b408c66525ad932faa693a647e3f.jpg");
+                item.setPicturePath(PICTURE);
                 itemRepository.saveAndFlush(item);
             }
 

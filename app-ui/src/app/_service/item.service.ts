@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {ItemDto} from "../_dto/item.dto";
+import {Auth} from "../_utils/auth.util";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,30 +17,33 @@ const httpOptions = {
 
 export class ItemService {
   readonly itemApi = "http://localhost:8080/api/item"
+  currentPerson: string;
 
-  constructor(private client: HttpClient) {
+  constructor(private client: HttpClient,
+              private _auth: Auth) {
+    this.currentPerson = _auth.currentPerson;
   }
 
   /**
    * Gets top items
    */
 
-  public getTopItems(username: string): Observable<ItemDto[]> {
-    return this.client.get<ItemDto[]>(`${this.itemApi}/${username}/items`);
+  public getTopItems(): Observable<ItemDto[]> {
+    return this.client.get<ItemDto[]>(`${this.itemApi}/${this.currentPerson}/items`);
   }
 
   /**
    * Add item
    */
-  public addItem(username: string, itemDto: ItemDto): Promise<ItemDto> {
-    return this.client.post<ItemDto>(`${this.itemApi}/${username}`, itemDto, httpOptions).toPromise();
+  public addItem(itemDto: ItemDto): Promise<ItemDto> {
+    return this.client.post<ItemDto>(`${this.itemApi}/${this.currentPerson}`, itemDto, httpOptions).toPromise();
   }
 
   /**
    * Add sub item
    */
-  public addSubItem(itemId: number, username: string, itemDto: ItemDto): Promise<ItemDto> {
-    return this.client.post<ItemDto>(`${this.itemApi}/${itemId}/${username}`, itemDto, httpOptions).toPromise();
+  public addSubItem(itemId: number, itemDto: ItemDto): Promise<ItemDto> {
+    return this.client.post<ItemDto>(`${this.itemApi}/${itemId}/${this.currentPerson}`, itemDto, httpOptions).toPromise();
   }
 
   /**
@@ -59,14 +63,14 @@ export class ItemService {
   /**
    * Search for an item
    */
-  public searchForAnItem(username: string, searchQuery: string) {
-    return this.client.get<string[]>(`${this.itemApi}/${username}/${searchQuery}`);
+  public searchForAnItem(searchQuery: string) {
+    return this.client.get<string[]>(`${this.itemApi}/${this.currentPerson}/${searchQuery}`);
   }
 
   /**
    * Remove item
    */
-  public removeItem(itemId: number, username: string) {
-    return this.client.delete(`${this.itemApi}/${itemId}/${username}`);
+  public removeItem(itemId: number) {
+    return this.client.delete(`${this.itemApi}/${itemId}/${this.currentPerson}`);
   }
 }

@@ -41,8 +41,7 @@ export class LoginFormComponent implements OnInit {
 
     this.personService.loginPerson(personDto)
       .then((res) => {
-        localStorage.setItem("person", res.username);
-        localStorage.setItem("profileType", res.profileType);
+        this._util.saveToLocalStorage(res);
         this.router.navigateByUrl("/dashboard").then(r => console.log("Redirect"));
       })
       .catch((errorResponse) => {

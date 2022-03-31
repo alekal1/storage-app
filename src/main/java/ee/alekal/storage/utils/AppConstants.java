@@ -12,6 +12,9 @@ public class AppConstants {
     public static final String PERSON_API_PATH = API_BASE_PATH + "/person";
     public static final String ITEM_API_PATH = API_BASE_PATH + "/item";
     public static final String SEPARATOR = "/";
+    public static final String BASE_URL = "http://localhost:8080";
+    public static final String PICTURE =
+            "https://i.pinimg.com/originals/59/54/b4/5954b408c66525ad932faa693a647e3f.jpg";
 
 
     // DB

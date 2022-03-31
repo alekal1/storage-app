@@ -69,9 +69,9 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<div *ngIf="itemId != undefined && subItems.length > 0">
-  <app-add-item-form [itemId]="itemId"></app-add-item-form>
+<div *ngIf="parentItemId != undefined && subItems.length > 0">
+  <app-add-item-form [parentItemId]="parentItemId"></app-add-item-form>
 </div>
-<div *ngIf="itemId == undefined && subItems.length > 0">
-  <app-add-item-form [itemId]="currentItemId"></app-add-item-form>
+<div *ngIf="parentItemId == undefined && subItems.length > 0">
+  <app-add-item-form [parentItemId]="currentItemId"></app-add-item-form>
 </div>

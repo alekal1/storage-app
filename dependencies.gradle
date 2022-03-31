@@ -2,7 +2,8 @@ ext.versions = [
         lombok      : '1.18.22',
         mapstruct   : '1.4.2.Final',
         junit       : '4.12',
-        springfox   : '2.9.2'
+        springfox   : '2.9.2',
+        okHttp      : '3.14.6'
 ]
 
 ext.deps = [
@@ -35,5 +36,9 @@ ext.deps = [
         springfox: [
                 "io.springfox:springfox-swagger2:$versions.springfox",
                 "io.springfox:springfox-swagger-ui:$versions.springfox"
+        ],
+
+        okHttp: [
+                "com.squareup.okhttp3:okhttp:$versions.okHttp"
         ]
 ]

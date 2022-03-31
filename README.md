@@ -35,12 +35,13 @@ GRANT ALL PRIVILEGES ON DATABASE storagedb TO ale;
 
 ## Run
 
+Whole application (FE + BE) is running on port :8080
+
 ```
 gradlew bootRun - Windows
 
 ./gradlew bootRun - Linux
 ```
-
 ## Logging
 
 This project uses external slf4j lombok logging tool. 
@@ -52,5 +53,12 @@ All logs are saved in gitignored `log` folder
 Proceed to `http://localhost:8080/swagger-ui.html` for swagger API documentation.
 
 ## Testing
+In total there are ~24 test cases for back end side.
+
+You can type `./gradlew testEngine` for filling UI with test data. 
+
+It will add some items to admin user
+
+!NB make sure application is running!
 
 Type `./gradlew test (gradlew test on windows)` for running basic test cases

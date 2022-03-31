@@ -1,10 +1,10 @@
 <div id="center-div">
   <mat-card>
-    <h2 *ngIf="itemId == undefined">Add new item</h2>
-    <h2 *ngIf="itemId != undefined">Add new item for item with id {{itemId}}</h2>
+    <h2 *ngIf="parentItemId == undefined">Add new item</h2>
+    <h2 *ngIf="parentItemId != undefined">Add new item for item with id {{parentItemId}}</h2>
     <form id="add-item-form" [formGroup]="form">
       <p>
-        <mat-form-field appearance="fill">
+        <mat-form-field class="field-input" appearance="fill">
           <mat-label>Name</mat-label>
           <label>
             <input formControlName="name" type="text" matInput required>
@@ -12,7 +12,7 @@
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field appearance="fill">
+        <mat-form-field class="field-input" appearance="fill">
           <mat-label>Color</mat-label>
           <label>
             <input formControlName="color" type="text" matInput required>
@@ -20,7 +20,7 @@
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field appearance="fill">
+        <mat-form-field class="field-input" appearance="fill">
           <mat-label>Serial number</mat-label>
           <label>
             <input formControlName="serialNumber" type="text" matInput>
@@ -28,7 +28,7 @@
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field appearance="fill">
+        <mat-form-field class="field-input" appearance="fill">
           <mat-label>Picture path</mat-label>
           <label>
             <input formControlName="picturePath" type="text" matInput required>
@@ -36,7 +36,7 @@
         </mat-form-field>
       </p>
       <p>
-        <mat-form-field appearance="fill">
+        <mat-form-field class="field-input" appearance="fill">
           <mat-label>Size</mat-label>
           <label>
             <input formControlName="size" type="number" matInput required>

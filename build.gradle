@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'ee.alekal'
-version = '4.1.1'
+version = '4.2.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -26,6 +26,7 @@ dependencies {
 	implementation deps.spring
 	implementation deps.mapstruct
 	implementation deps.springfox
+	implementation deps.okHttp
 
 	compileOnly deps.lombok
 
@@ -44,15 +45,16 @@ task cleanStatic(type: Delete) {
 	)
 }
 
-task cleanLog {
-	delete "$rootDir/log"
-}
-
 test {
 	useJUnitPlatform()
 	testLogging {
 		events "passed", "skipped", "failed"
 	}
+}
+
+task testEngine(type: JavaExec) {
+	classpath = sourceSets.main.runtimeClasspath
+	mainClass = "ee.alekal.storage.engine.TestEngine"
 }
 
 processResources.dependsOn('app-ui:build')

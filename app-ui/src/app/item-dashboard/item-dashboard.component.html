@@ -67,7 +67,7 @@
 </table>
 
 <div *ngIf="itemId != undefined">
-  <app-add-item-form [itemId]="itemId"></app-add-item-form>
+  <app-add-item-form [parentItemId]="itemId"></app-add-item-form>
 </div>
 <div *ngIf="itemId == undefined">
   <app-add-item-form></app-add-item-form>

@@ -15,14 +15,10 @@ export class SubItemDashboardComponent implements OnInit {
 
   subItems: ItemDto[];
   size: number = undefined;
-  itemId: number = undefined;
+  parentItemId: number = undefined;
   currentItemId: number = undefined;
-  person: string = localStorage.getItem('person')
 
-  displayedColumns: string[] =
-    ['id', 'picture', 'name', 'serialNumber',
-      'color', 'size', 'lastAccessedOn',
-      'subItems', 'addSubItems', 'removeItem']
+  displayedColumns: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +26,9 @@ export class SubItemDashboardComponent implements OnInit {
     private itemService: ItemService,
     private location: Location,
     private _utils: Utils
-  ) { }
+  ) {
+    this.displayedColumns = _utils.displayedColumns;
+  }
 
   ngOnInit(): void {
     this.getSubItems();
@@ -57,11 +55,11 @@ export class SubItemDashboardComponent implements OnInit {
   }
 
   addSubItem(id: number) {
-    this.itemId = id;
+    this.parentItemId = id;
   }
 
   removeItem(id: number): void {
-    this.itemService.removeItem(id, this.person)
+    this.itemService.removeItem(id)
       .toPromise()
       .then((res) => window.location.reload())
       .catch((errorResponse) => {

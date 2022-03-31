@@ -18,7 +18,7 @@ export class SearchComponent implements OnInit {
   }
 
   searchForAnItem(): void {
-    this.itemService.searchForAnItem(this.username, this.searchQuery)
+    this.itemService.searchForAnItem(this.searchQuery)
       .subscribe(res => {
         this.searchResult = res;
       })

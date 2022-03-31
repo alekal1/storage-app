@@ -11,7 +11,7 @@ import {Utils} from "../_utils/app.util";
 })
 export class AddItemFormComponent implements OnInit {
 
-  @Input() itemId = undefined;
+  @Input() parentItemId = undefined;
 
   constructor(private itemService: ItemService,
               private fb: FormBuilder,
@@ -45,8 +45,8 @@ export class AddItemFormComponent implements OnInit {
       new Date()
     )
 
-    if (this.itemId == undefined) {
-      this.itemService.addItem(localStorage.getItem("person"), dto)
+    if (this.parentItemId == undefined) {
+      this.itemService.addItem(dto)
         .then((res) => {
           window.location.reload();
         })
@@ -55,7 +55,7 @@ export class AddItemFormComponent implements OnInit {
           this.initForm();
         })
     } else {
-      this.itemService.addSubItem(this.itemId, localStorage.getItem("person"), dto)
+      this.itemService.addSubItem(this.parentItemId, dto)
         .then((res) => {
           window.location.reload()
         })

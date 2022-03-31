@@ -22,7 +22,8 @@ public class ItemValidator {
     }
 
     public void checkIfSizeNotZeroOrLess(ItemDto itemDto) {
-        if (itemDto.getSize().equals(BigInteger.ZERO)) {
+        if (itemDto.getSize().equals(BigInteger.ZERO)
+                || itemDto.getSize().signum() != 1) {
             log.info("Sub item's size cannot be zero or zero than less");
             throw new ItemSizeIsZeroOrLessException();
         }
