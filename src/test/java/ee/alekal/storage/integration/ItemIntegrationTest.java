@@ -178,6 +178,34 @@ public class ItemIntegrationTest {
         assertNotNull(results.getResponse());
     }
 
+    @Test
+    @Order(9)
+    public void canSearchForAGoodsItem() throws Exception {
+        final var path = ITEM_API_PATH.concat("/")
+                .concat(validDto.getUsername())
+                .concat("/Box-1");
+        var result = this.mockMvc.perform(get(path)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andReturn();
+        assertNotNull(result.getResponse());
+    }
+
+    @Test
+    @Order(10)
+    public void canSearchForSubItem() throws Exception {
+        final var path = ITEM_API_PATH.concat("/")
+                .concat(validDto.getUsername())
+                .concat("/Sub-Box-1");
+        var result = this.mockMvc.perform(get(path)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        assertNotNull(result.getResponse());
+    }
+
     private void registerUser() throws Exception {
         this.mockMvc.perform(post(PERSON_API_PATH.concat("/register"))
                 .contentType(MediaType.APPLICATION_JSON)

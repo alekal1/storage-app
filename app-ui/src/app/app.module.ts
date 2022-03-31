@@ -22,6 +22,8 @@ import { GreetingComponent } from './greeting/greeting.component';
 import { ItemDashboardComponent } from './item-dashboard/item-dashboard.component';
 import { AddItemFormComponent } from './add-item-form/add-item-form.component';
 import { SubItemDashboardComponent } from './sub-item-dashboard/sub-item-dashboard.component';
+import { SearchComponent } from './search/search.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { SubItemDashboardComponent } from './sub-item-dashboard/sub-item-dashboa
     GreetingComponent,
     ItemDashboardComponent,
     AddItemFormComponent,
-    SubItemDashboardComponent
+    SubItemDashboardComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { SubItemDashboardComponent } from './sub-item-dashboard/sub-item-dashboa
     MatSelectModule,
     MatFormFieldModule,
     MatTableModule,
+    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,

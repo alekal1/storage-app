@@ -1,0 +1,21 @@
+<mat-form-field class="search-input" appearance="fill">
+  <mat-label>Search for an item</mat-label>
+  <input type="text" (ngModelChange)="searchResult = []" matInput [(ngModel)]="searchQuery">
+  <button *ngIf="searchQuery" matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="clearSearch()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <button *ngIf="searchQuery" matSuffix
+          mat-icon-button
+          aria-label="Search"
+          (click)="searchForAnItem()">
+    <mat-icon>input</mat-icon>
+  </button>
+</mat-form-field>
+<div *ngIf="searchQuery != ''">
+  <h2 *ngFor="let res of searchResult">
+    {{res}}
+  </h2>
+</div>

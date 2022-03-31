@@ -57,6 +57,13 @@ export class ItemService {
   }
 
   /**
+   * Search for an item
+   */
+  public searchForAnItem(username: string, searchQuery: string) {
+    return this.client.get<string[]>(`${this.itemApi}/${username}/${searchQuery}`);
+  }
+
+  /**
    * Remove item
    */
   public removeItem(itemId: number, username: string) {
