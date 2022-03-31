@@ -1,9 +1,9 @@
 package ee.alekal.storage.service.api;
 
 import ee.alekal.storage.dao.PersonRepository;
-import ee.alekal.storage.exception.RepresentativeIsNotFoundException;
-import ee.alekal.storage.exception.UserAlreadyRegisteredException;
-import ee.alekal.storage.exception.UserIsNotRegisteredException;
+import ee.alekal.storage.exception.person.RepresentativeIsNotFoundException;
+import ee.alekal.storage.exception.person.UserAlreadyRegisteredException;
+import ee.alekal.storage.exception.person.UserIsNotRegisteredException;
 import ee.alekal.storage.mapper.AppMapper;
 import ee.alekal.storage.model.Action;
 import ee.alekal.storage.model.dto.PersonDto;
@@ -28,6 +28,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public ResponseEntity<?> loginPerson(PersonDto personDto) {
+        log.info("loginPerson, user={}", personDto.getUsername());
         try {
             log.info("loginPerson, validating person.");
 
@@ -41,6 +42,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public ResponseEntity<?> registerPerson(PersonDto personDto) {
+        log.info("registerPerson, user={}", personDto.getUsername());
         try {
             log.info("registerPerson, validating person.");
 

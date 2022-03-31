@@ -2,8 +2,8 @@ package ee.alekal.storage.service.api;
 
 import ee.alekal.storage.dao.ItemRepository;
 import ee.alekal.storage.dao.PersonRepository;
-import ee.alekal.storage.exception.ItemSizeIsBiggerThanItsParentException;
-import ee.alekal.storage.exception.ItemSizeIsZeroException;
+import ee.alekal.storage.exception.item.ItemSizeIsBiggerThanItsParentException;
+import ee.alekal.storage.exception.item.ItemSizeIsZeroOrLessException;
 import ee.alekal.storage.mapper.AppMapper;
 import ee.alekal.storage.model.dto.ItemDto;
 import ee.alekal.storage.model.jpa.Item;
@@ -37,14 +37,16 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> addItem(String personUsername, ItemDto itemDto) {
+        log.info("addItem, user={}, itemDto={}",
+                personUsername, itemDto);
         try {
-            itemValidator.checkIfSizeNotZero(itemDto);
-        } catch (ItemSizeIsZeroException e) {
+            itemValidator.checkIfSizeNotZeroOrLess(itemDto);
+        } catch (ItemSizeIsZeroOrLessException e) {
             return errorResponse(e.getMessage());
         }
 
         var item = appMapper.itemDtoTiEntity(itemDto);
-        var person = personRepository.getByUsername(personUsername);
+        var person = personRepository.findByUsername(personUsername);
 
         if (person.isEmpty()) {
             return errorResponse(USER_IS_NOT_REGISTERED_MSG);
@@ -58,9 +60,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> addSubItem(String personUsername, Long parentItemId, ItemDto itemDto) {
+        log.info("addSubItem, user={}, parentItemId={}, itemDto={}",
+                personUsername, parentItemId, itemDto);
         var parentItem = itemRepository.getById(parentItemId);
         var item = appMapper.itemDtoTiEntity(itemDto);
-        var person = personRepository.getByUsername(personUsername);
+        var person = personRepository.findByUsername(personUsername);
         if (person.isEmpty()) {
             return errorResponse(USER_IS_NOT_REGISTERED_MSG);
         }
@@ -68,23 +72,22 @@ public class ItemServiceImpl implements ItemService {
         item.setParentItem(parentItem);
         item.setLastAccessedOn(LocalDate.now());
 
-        log.info("Current parent item size={}", item.getSize());
-
         try {
             itemValidator.checkItemSize(parentItem, itemDto);
             parentItem.setSize(parentItem.getSize().subtract(itemDto.getSize()));
-            log.info("Decreasing parent item size={}", item.getSize());
-
             itemRepository.saveAndFlush(item);
+
             return ResponseEntity.ok().build();
-        } catch (ItemSizeIsBiggerThanItsParentException | ItemSizeIsZeroException e) {
+        } catch (ItemSizeIsBiggerThanItsParentException | ItemSizeIsZeroOrLessException e) {
             return errorResponse(e.getMessage());
         }
     }
 
     @Override
     public ResponseEntity<?> removeItem(String personUsername, Long itemId) {
-        var person = personRepository.getByUsername(personUsername);
+        log.info("removeItem, user={}, itemId={}",
+                personUsername, itemId);
+        var person = personRepository.findByUsername(personUsername);
         if (person.isEmpty()) {
             return errorResponse(USER_IS_NOT_REGISTERED_MSG);
         }
@@ -93,7 +96,6 @@ public class ItemServiceImpl implements ItemService {
         if (!subItems.isEmpty()) {
             return errorResponse(ITEM_IS_NOT_EMPTY_MSG);
         }
-        log.info("Got subItems for id={}, {}", itemId, subItems);
 
         var item = itemRepository.getById(itemId);
 
@@ -107,6 +109,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> getTopLevelItems(String userName) {
+        log.info("getTopLevelItems, user={}",
+                userName);
         var items = itemRepository.findAll();
         Predicate<Item> nullParent = item -> item.getParentItem() == null;
         Predicate<Item> sameUserName = item -> userName.equals(item.getPerson().getUsername());
@@ -125,14 +129,15 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> getSubItems(Long itemId) {
+        log.info("getSubItems, itemId={}", itemId);
         var items = itemRepository.findAllByParentItemId(itemId);
         items.forEach(item -> item.setLastAccessedOn(LocalDate.now()));
-        log.info("Got sub items {}, for id={}", items, itemId);
         return ResponseEntity.ok(items);
     }
 
     @Override
     public ResponseEntity<?> getItemSize(Long itemId) {
+        log.debug("getItemSize, itemId={}", itemId);
         var item = itemRepository.findById(itemId);
         if (item.isEmpty()) {
             return errorResponse(ITEM_NOT_EXIST);
@@ -142,6 +147,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> searchItem(String personUsername, String searchQuery) {
+        log.info("searchItem, user={}, query={}", personUsername, searchQuery);
         var allPersonsItems =
                 itemRepository.getAllBySearchQueryAndUsername(personUsername, searchQuery.toLowerCase());
         if (allPersonsItems.isEmpty()) {

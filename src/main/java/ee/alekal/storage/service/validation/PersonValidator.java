@@ -1,9 +1,9 @@
 package ee.alekal.storage.service.validation;
 
 import ee.alekal.storage.dao.PersonRepository;
-import ee.alekal.storage.exception.RepresentativeIsNotFoundException;
-import ee.alekal.storage.exception.UserAlreadyRegisteredException;
-import ee.alekal.storage.exception.UserIsNotRegisteredException;
+import ee.alekal.storage.exception.person.RepresentativeIsNotFoundException;
+import ee.alekal.storage.exception.person.UserAlreadyRegisteredException;
+import ee.alekal.storage.exception.person.UserIsNotRegisteredException;
 import ee.alekal.storage.model.Action;
 import ee.alekal.storage.model.dto.PersonDto;
 import ee.alekal.storage.utils.PasswordHelper;
@@ -26,7 +26,7 @@ public class PersonValidator {
     public void checkPersonsAction(PersonDto personDto, Action action) throws UserIsNotRegisteredException {
         log.info("Checking action {}", action.name());
         var encodedPassword = PasswordHelper.encodePassword(personDto.getPassword());
-        var person = personRepository.getByUsernameAndPassword(
+        var person = personRepository.findByUsernameAndPassword(
                 personDto.getUsername(), encodedPassword
         );
         if (LOGIN.equals(action)) {
@@ -46,7 +46,7 @@ public class PersonValidator {
 
     private void checkIfRepresentativeAssigned(PersonDto personDto) throws RepresentativeIsNotFoundException {
         if (BUSINESS.value.equalsIgnoreCase(personDto.getProfileType())) {
-            var repr = personRepository.getByUsername(
+            var repr = personRepository.findByUsername(
                     personDto.getRepresentativeUsername());
 
             if (repr.isEmpty()) {

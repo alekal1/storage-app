@@ -19,14 +19,13 @@ import java.time.LocalDate;
 import java.util.Properties;
 
 import static ee.alekal.storage.model.ProfileType.ADMIN;
+import static ee.alekal.storage.utils.AppConstants.ADMIN_PASSWORD_PROP;
+import static ee.alekal.storage.utils.AppConstants.ADMIN_PROP_FILE;
+import static ee.alekal.storage.utils.AppConstants.ADMIN_USERNAME_PROP;
 
 @Configuration
 @EnableSwagger2
 public class AppConfig extends WebMvcAutoConfiguration {
-
-    private static final String ADMIN_PROP_FILE = "admin.properties";
-    private static final String ADMIN_USERNAME_PROP = "username";
-    private static final String ADMIN_PASSWORD_PROP = "password";
 
     @Bean
     public AppMapper personMapper() {
@@ -40,7 +39,8 @@ public class AppConfig extends WebMvcAutoConfiguration {
             var props = configureProps();
             var adminPerson = new Person();
             adminPerson.setUsername(props.getProperty(ADMIN_USERNAME_PROP));
-            adminPerson.setPassword(PasswordHelper.encodePassword(props.getProperty(ADMIN_PASSWORD_PROP)));
+            adminPerson.setPassword(PasswordHelper.encodePassword(
+                    props.getProperty(ADMIN_PASSWORD_PROP)));
             adminPerson.setProfileType(ADMIN.value);
             personRepository.saveAndFlush(adminPerson);
 
@@ -52,7 +52,8 @@ public class AppConfig extends WebMvcAutoConfiguration {
                 item.setSize(BigInteger.TEN);
                 item.setName("Box-" + i);
                 item.setSerialNumber("abc-def-12" + i);
-                item.setPicturePath("https://i.pinimg.com/originals/59/54/b4/5954b408c66525ad932faa693a647e3f.jpg");
+                item.setPicturePath("" +
+                        "https://i.pinimg.com/originals/59/54/b4/5954b408c66525ad932faa693a647e3f.jpg");
                 itemRepository.saveAndFlush(item);
             }
 

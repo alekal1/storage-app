@@ -30,15 +30,19 @@ public class AppConstants {
             = "Item is not empty! You can remove only empty items";
     public static final String SUB_ITEM_IS_BIGGER_THAN_PARENT_MSG
             = "Sub item's size is bigger that it's parent size";
-    public static final String ITEM_SIZE_IS_ZERO_MSG
-            = "Item's size cannot be zero!";
+    public static final String ITEM_SIZE_IS_ZERO_OR_LESS_MSG
+            = "Item's size cannot be zero or less!";
     public static final String ITEM_NOT_EXIST
             = "Item not exists!";
     public static final String NO_ITEM_FOUND_WITH_GIVEN_SEARCH_QUERY
             = "Item with given name does not exists!";
 
+    // Admin props
+    public static final String ADMIN_PROP_FILE = "admin.properties";
+    public static final String ADMIN_USERNAME_PROP = "username";
+    public static final String ADMIN_PASSWORD_PROP = "password";
 
-    // Response
+    // Error Response
     public static ResponseEntity<ErrorResponse> errorResponse(String message) {
         return new ResponseEntity<>(
                 ErrorResponse.builder()

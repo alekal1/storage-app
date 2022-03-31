@@ -82,13 +82,13 @@ public class PersonServiceTest {
         @Bean
         public PersonRepository personRepository() {
             var mock = Mockito.mock(PersonRepository.class);
-            when(mock.getByUsername(eq(INVALID_REPRESENTATIVE_NAME)))
+            when(mock.findByUsername(eq(INVALID_REPRESENTATIVE_NAME)))
                     .thenReturn(Optional.empty());
-            when(mock.getByUsername(eq(VALID_REPRESENTATIVE_NAME)))
+            when(mock.findByUsername(eq(VALID_REPRESENTATIVE_NAME)))
                     .thenReturn(Optional.of(new Person()));
-            when(mock.getByUsernameAndPassword(eq(VALID_USERNAME), eq(VALID_ENCODED_PASS)))
+            when(mock.findByUsernameAndPassword(eq(VALID_USERNAME), eq(VALID_ENCODED_PASS)))
                     .thenReturn(Optional.of(new Person()));
-            when(mock.getByUsernameAndPassword(eq(INVALID_USERNAME), eq(INVALID_ENCODED_PASS)))
+            when(mock.findByUsernameAndPassword(eq(INVALID_USERNAME), eq(INVALID_ENCODED_PASS)))
                     .thenReturn(Optional.empty());
             return mock;
         }
