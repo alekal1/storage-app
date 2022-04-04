@@ -37,6 +37,10 @@ GRANT ALL PRIVILEGES ON DATABASE storagedb TO ale;
 
 Whole application (FE + BE) is running on port :8080
 
+Proceed to `app-ui` and install dependencies `npm i`
+
+Run application with following command:
+
 ```
 gradlew bootRun - Windows
 
